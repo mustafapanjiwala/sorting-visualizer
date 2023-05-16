@@ -1,47 +1,77 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
+.App {
+  text-align: center;
 }
 
-.bars-container {
+h1 {
+  margin-bottom: 20px;
+}
+
+.header {
+  width: 100%;
+  background-color: #5281ce30;
+  display: flex;
+  gap: 100px;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  color: #1c3969;
+  margin: 0;
+  padding: 20px 20px 7px 20px;
+  cursor: pointer;
+}
+
+.selected {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 10px;
+  text-decoration-color: #1c3969;
+}
+
+.controls {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
 }
 
-.bar {
-  width: 50px;
-  margin: 0 2px;
-  background-color: #47d1d1;
-  transition: height 0.1s ease-in-out;
+.array-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 400px;
+  padding: 50px;
 }
 
-.compare {
-  background-color: #f54b42;
+.array-bar {
+  width: 20px;
+  background-color: #3498db;
+  margin: 0 1px;
+  transition: height 0.2s;
 }
 
-.swap {
-  background-color: #41f584;
+.highlighted {
+  background-color: yellow;
 }
 
-.controls-container {
-  margin-top: 30px;
+.sorting {
+  background-color: red;
 }
 
-.btn {
-  margin-right: 10px;
+.buttons {
+  margin-top: 20px;
+}
+
+button {
   padding: 10px 20px;
-  border-radius: 5px;
+  margin: 0 10px;
   font-size: 16px;
+  background-color: #2ecc71;
   color: #fff;
-  background-color: #47d1d1;
   border: none;
   cursor: pointer;
 }
 
-.btn:disabled {
+button:disabled {
   background-color: #ccc;
-  cursor: default;
+  cursor: not-allowed;
 }

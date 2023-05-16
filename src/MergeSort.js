@@ -1,36 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import './MergeSort.css';
 
 function MergeSort() {
   const [array, setArray] = useState([]);
   const [currentStep, setCurrentStep] = useState(0);
   const [animations, setAnimations] = useState([]);
+  const [stepByStep, setStepByStep] = useState(false);
+  const [started, setStart] = useState(false);
 
   useEffect(() => {
     resetArray();
   }, []);
 
-  function resetArray() {
+  const resetArray = () => {
     const newArray = [];
     for (let i = 0; i < 20; i++) {
       newArray.push(getRandomInt(5, 400));
     }
     setArray(newArray);
-    setAnimations([]);
-    setCurrentStep(0);
-  }
+    if (stepByStep) {
+      setAnimations([]);
+      setCurrentStep(0);
+      setStart(false);
+      setStepByStep(false);
+    }
+    for (let i = 0; i < array.length; i++) {
+      const arrayBars = document.getElementsByClassName('array-bar');
+      const barStyle = arrayBars[i].style;
+      const colorClass = '#3498db';
+      barStyle.backgroundColor = colorClass;
+    }
+  };
 
   function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  function mergeSort() {
+  const mergeSort = () => {
     const sortedArray = [...array];
     const animations = [];
     mergeSortHelper(sortedArray, 0, sortedArray.length - 1, animations);
-    setAnimations(animations);
-    setCurrentStep(0);
-  }
+
+    animateSort(animations);
+  };
 
   function mergeSortHelper(array, startIdx, endIdx, animations) {
     if (startIdx === endIdx) return;
@@ -68,7 +79,20 @@ function MergeSort() {
     }
   }
 
-  function animateSort() {
+  function animateSort(animations) {
+    for (let i = 0; i < animations.length; i++) {
+      const arrayBars = document.getElementsByClassName('array-bar');
+      const [idx, newHeight, isMerge] = animations[i];
+      const barStyle = arrayBars[idx].style;
+      const colorClass = isMerge ? 'green' : 'red';
+      setTimeout(() => {
+        barStyle.height = `${newHeight}px`;
+        barStyle.backgroundColor = colorClass;
+      }, i * 50);
+    }
+  }
+
+  function animateSortSteByStep() {
     const [idx, newHeight, isMerge] = animations[currentStep];
     const arrayBars = document.getElementsByClassName('array-bar');
     const barStyle = arrayBars[idx].style;
@@ -78,11 +102,21 @@ function MergeSort() {
     setCurrentStep(currentStep + 1);
   }
 
-  function handleNextClick() {
-    if (currentStep < animations.length) {
-      animateSort();
+  const handleNextClick = () => {
+    if (started) {
+      if (currentStep < animations.length) {
+        animateSortSteByStep();
+      }
+    } else {
+      setStart(true);
+      setStepByStep(true);
+      const sortedArray = [...array];
+      const animations = [];
+      mergeSortHelper(sortedArray, 0, sortedArray.length - 1, animations);
+      setAnimations(animations);
+      setCurrentStep(0);
     }
-  }
+  };
 
   return (
     <div className='merge-sort'>
@@ -91,13 +125,17 @@ function MergeSort() {
           <div
             className='array-bar'
             key={idx}
-            style={{ height: `${value}px`, backgroundColor: '#3d5afe' }}
+            style={{ height: `${value}px`, backgroundColor: '#3498db' }}
           ></div>
         ))}
       </div>
-      <button onClick={mergeSort}>Sort</button>
-      <button onClick={resetArray}>Reset</button>
-      <button onClick={handleNextClick}>Next</button>
+      <div className='controls'>
+        <button onClick={resetArray}>Generate New Elements</button>
+        <button onClick={mergeSort}>Sort Elements</button>
+        <button onClick={handleNextClick}>
+          {started ? 'Next' : 'Start step by step sorting'}
+        </button>
+      </div>
     </div>
   );
 }
