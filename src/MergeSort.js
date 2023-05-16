@@ -3,6 +3,8 @@ import './MergeSort.css';
 
 function MergeSort() {
   const [array, setArray] = useState([]);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [animations, setAnimations] = useState([]);
 
   useEffect(() => {
     resetArray();
@@ -14,12 +16,8 @@ function MergeSort() {
       newArray.push(getRandomInt(5, 400));
     }
     setArray(newArray);
-    for (let i = 0; i < array.length; i++) {
-      const arrayBars = document.getElementsByClassName('array-bar');
-      const barStyle = arrayBars[i].style;
-      const colorClass = '#3d5afe';
-      barStyle.backgroundColor = colorClass;
-    }
+    setAnimations([]);
+    setCurrentStep(0);
   }
 
   function getRandomInt(min, max) {
@@ -30,7 +28,8 @@ function MergeSort() {
     const sortedArray = [...array];
     const animations = [];
     mergeSortHelper(sortedArray, 0, sortedArray.length - 1, animations);
-    animateSort(animations);
+    setAnimations(animations);
+    setCurrentStep(0);
   }
 
   function mergeSortHelper(array, startIdx, endIdx, animations) {
@@ -69,16 +68,19 @@ function MergeSort() {
     }
   }
 
-  function animateSort(animations) {
-    for (let i = 0; i < animations.length; i++) {
-      const arrayBars = document.getElementsByClassName('array-bar');
-      const [idx, newHeight, isMerge] = animations[i];
-      const barStyle = arrayBars[idx].style;
-      const colorClass = isMerge ? 'green' : 'red';
-      setTimeout(() => {
-        barStyle.height = `${newHeight}px`;
-        barStyle.backgroundColor = colorClass;
-      }, i * 50);
+  function animateSort() {
+    const [idx, newHeight, isMerge] = animations[currentStep];
+    const arrayBars = document.getElementsByClassName('array-bar');
+    const barStyle = arrayBars[idx].style;
+    const colorClass = isMerge ? 'green' : 'red';
+    barStyle.height = `${newHeight}px`;
+    barStyle.backgroundColor = colorClass;
+    setCurrentStep(currentStep + 1);
+  }
+
+  function handleNextClick() {
+    if (currentStep < animations.length) {
+      animateSort();
     }
   }
 
@@ -95,6 +97,7 @@ function MergeSort() {
       </div>
       <button onClick={mergeSort}>Sort</button>
       <button onClick={resetArray}>Reset</button>
+      <button onClick={handleNextClick}>Next</button>
     </div>
   );
 }
