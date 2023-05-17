@@ -10,13 +10,13 @@ const App = () => {
     <div>
       <div className='header'>
         <h2
-          className={isMergeSelected && 'selected'}
+          className={isMergeSelected ? 'selected' : ''}
           onClick={() => setIsMergeSelected(true)}
         >
           Merge Sort
         </h2>
         <h2
-          className={!isMergeSelected && 'selected'}
+          className={!isMergeSelected ? 'selected' : ''}
           onClick={() => setIsMergeSelected(false)}
         >
           Quick Sort

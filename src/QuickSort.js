@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 const QuickSort = () => {
   const [array, setArray] = useState([]);
@@ -85,25 +85,22 @@ const QuickSort = () => {
   };
 
   return (
-    <div className="container">
-      <div className="leftContainer">
-        <h1
-          className="title"
-          style={{ borderBottom: "2px solid black", paddingBottom: "5px" }}
-        >
-          About the Quick Sort
-        </h1>
-        <div className="content">
-          <div className="desc">
+    <div className='container'>
+      <div className='leftContainer'>
+        <h1 className='title'>About the Quick Sort</h1>
+        <div className='content'>
+          <div className='desc'>
             <p>
-              Quicksort is an efficient sorting algorithm. Developed by British
-              computer scientist Tony Hoare in 1959 and published in 1961, it is
-              still a commonly used algorithm for sorting. When implemented
-              well, it can be somewhat faster than merge sort and about two or
-              three times faster than heapsort.{" "}
+              Quick sort also uses a divide-and-conquer strategy. It selects a
+              "pivot" element from the list and rearranges the other elements
+              around the pivot, such that all elements smaller than the pivot
+              are placed to its left and all elements greater than the pivot are
+              placed to its right. This partitioning step is performed
+              recursively on the sublists formed on both sides of the pivot
+              until the entire list is sorted.
             </p>
           </div>
-          <div className="performance">
+          <div className='performance'>
             <ul>
               <li>
                 <b>Worst complexity:</b> n^2
@@ -127,25 +124,25 @@ const QuickSort = () => {
           </div>
         </div>
       </div>
-      <div className="rightContainer">
-        <div className="array-container">
+      <div className='rightContainer'>
+        <div className='array-container'>
           {array.map((value, idx) => (
             <div
               className={`array-bar ${
-                highlightedIndices.includes(idx) ? "highlighted" : ""
-              } ${idx === sortingIndex ? "sorting" : ""}`}
+                highlightedIndices.includes(idx) ? 'highlighted' : ''
+              } ${idx === sortingIndex ? 'sorting' : ''}`}
               key={idx}
               style={{ height: `${value}px` }}
             ></div>
           ))}
         </div>
-        <div className="controls">
+        <div className='controls'>
           <button onClick={generateArray}>Generate New Elements</button>
           <button onClick={() => quickSort(array, 0, array.length - 1)}>
             Sort Elements
           </button>
           <button onClick={handleNextStep}>
-            {sortingIndex < 0 ? "Start step by step sorting" : "Next"}
+            {sortingIndex < 0 ? 'Start step by step sorting' : 'Next'}
           </button>
         </div>
       </div>
