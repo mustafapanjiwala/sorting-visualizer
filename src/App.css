@@ -1,5 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap");
+* {
+  font-family: "Montserrat", sans-serif;
+}
 .App {
   text-align: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
@@ -8,6 +15,7 @@ h1 {
 
 .header {
   width: 100%;
+  height: 10vh;
   background-color: #5281ce30;
   display: flex;
   gap: 100px;
@@ -33,13 +41,48 @@ h2 {
   display: flex;
   justify-content: center;
 }
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  width: 100vw;
+  background-color: #dee7f6;
+}
+
+.leftContainer {
+  display: flex;
+  width: 50%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.rightContainer {
+  display: flex;
+  width: 50%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+}
+.desc {
+  width: 50%;
+}
 
 .array-container {
   display: flex;
   align-items: flex-end;
   justify-content: center;
   height: 400px;
-  padding: 50px;
+  width: auto;
 }
 
 .array-bar {

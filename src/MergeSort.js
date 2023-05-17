@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 function MergeSort() {
   const [array, setArray] = useState([]);
@@ -24,9 +24,9 @@ function MergeSort() {
       setStepByStep(false);
     }
     for (let i = 0; i < array.length; i++) {
-      const arrayBars = document.getElementsByClassName('array-bar');
+      const arrayBars = document.getElementsByClassName("array-bar");
       const barStyle = arrayBars[i].style;
-      const colorClass = '#3498db';
+      const colorClass = "#3498db";
       barStyle.backgroundColor = colorClass;
     }
   };
@@ -81,10 +81,10 @@ function MergeSort() {
 
   function animateSort(animations) {
     for (let i = 0; i < animations.length; i++) {
-      const arrayBars = document.getElementsByClassName('array-bar');
+      const arrayBars = document.getElementsByClassName("array-bar");
       const [idx, newHeight, isMerge] = animations[i];
       const barStyle = arrayBars[idx].style;
-      const colorClass = isMerge ? 'green' : 'red';
+      const colorClass = isMerge ? "green" : "red";
       setTimeout(() => {
         barStyle.height = `${newHeight}px`;
         barStyle.backgroundColor = colorClass;
@@ -94,9 +94,9 @@ function MergeSort() {
 
   function animateSortSteByStep() {
     const [idx, newHeight, isMerge] = animations[currentStep];
-    const arrayBars = document.getElementsByClassName('array-bar');
+    const arrayBars = document.getElementsByClassName("array-bar");
     const barStyle = arrayBars[idx].style;
-    const colorClass = isMerge ? 'green' : 'red';
+    const colorClass = isMerge ? "green" : "red";
     barStyle.height = `${newHeight}px`;
     barStyle.backgroundColor = colorClass;
     setCurrentStep(currentStep + 1);
@@ -119,22 +119,65 @@ function MergeSort() {
   };
 
   return (
-    <div className='merge-sort'>
-      <div className='array-container'>
-        {array.map((value, idx) => (
-          <div
-            className='array-bar'
-            key={idx}
-            style={{ height: `${value}px`, backgroundColor: '#3498db' }}
-          ></div>
-        ))}
+    <div className="container">
+      <div className="leftContainer">
+        <h1
+          className="title"
+          style={{ borderBottom: "2px solid black", paddingBottom: "5px" }}
+        >
+          About the Merge Sort
+        </h1>
+        <div className="content">
+          <div className="desc">
+            <p>
+              In computer science, merge sort is an efficient, general-purpose,
+              comparison-based sorting algorithm. Most implementations produce a
+              stable sort, which means that the order of equal elements is the
+              same in the input and output. Merge sort is a divide and conquer
+              algorithm that was invented by John von Neumann in 1945.{" "}
+            </p>
+          </div>
+          <div className="performance">
+            <ul>
+              <li>
+                <b>Worst complexity:</b> n*log(n)
+              </li>
+              <li>
+                <b>Average complexity:</b> n*log(n)
+              </li>
+              <li>
+                <b>Best complexity:</b> n*log(n)
+              </li>
+              <li>
+                <b>Space complexity:</b> n
+              </li>
+              <li>
+                <b>Method:</b> Merging
+              </li>
+              <li>
+                <b>Stable:</b> Yes
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div className='controls'>
-        <button onClick={resetArray}>Generate New Elements</button>
-        <button onClick={mergeSort}>Sort Elements</button>
-        <button onClick={handleNextClick}>
-          {started ? 'Next' : 'Start step by step sorting'}
-        </button>
+      <div className="rightContainer">
+        <div className="array-container">
+          {array.map((value, idx) => (
+            <div
+              className="array-bar"
+              key={idx}
+              style={{ height: `${value}px`, backgroundColor: "#3498db" }}
+            ></div>
+          ))}
+        </div>
+        <div className="controls">
+          <button onClick={resetArray}>Generate New Elements</button>
+          <button onClick={mergeSort}>Sort Elements</button>
+          <button onClick={handleNextClick}>
+            {started ? "Next" : "Start step by step sorting"}
+          </button>
+        </div>
       </div>
     </div>
   );
