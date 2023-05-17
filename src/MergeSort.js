@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from "react";
 
 function MergeSort() {
   const [array, setArray] = useState([]);
@@ -7,11 +7,7 @@ function MergeSort() {
   const [stepByStep, setStepByStep] = useState(false);
   const [started, setStart] = useState(false);
 
-  useEffect(() => {
-    resetArray();
-  }, []);
-
-  const resetArray = () => {
+  const resetArray = useCallback(() => {
     const newArray = [];
     for (let i = 0; i < 20; i++) {
       newArray.push(getRandomInt(5, 400));
@@ -24,12 +20,16 @@ function MergeSort() {
       setStepByStep(false);
     }
     for (let i = 0; i < array.length; i++) {
-      const arrayBars = document.getElementsByClassName('array-bar');
+      const arrayBars = document.getElementsByClassName("array-bar");
       const barStyle = arrayBars[i].style;
-      const colorClass = '#3498db';
+      const colorClass = "#3498db";
       barStyle.backgroundColor = colorClass;
     }
-  };
+  }, [array.length, stepByStep]);
+
+  useEffect(() => {
+    resetArray();
+  }, [resetArray]);
 
   function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -81,10 +81,10 @@ function MergeSort() {
 
   function animateSort(animations) {
     for (let i = 0; i < animations.length; i++) {
-      const arrayBars = document.getElementsByClassName('array-bar');
+      const arrayBars = document.getElementsByClassName("array-bar");
       const [idx, newHeight, isMerge] = animations[i];
       const barStyle = arrayBars[idx].style;
-      const colorClass = isMerge ? 'green' : 'red';
+      const colorClass = isMerge ? "green" : "red";
       setTimeout(() => {
         barStyle.height = `${newHeight}px`;
         barStyle.backgroundColor = colorClass;
@@ -94,9 +94,9 @@ function MergeSort() {
 
   function animateSortSteByStep() {
     const [idx, newHeight, isMerge] = animations[currentStep];
-    const arrayBars = document.getElementsByClassName('array-bar');
+    const arrayBars = document.getElementsByClassName("array-bar");
     const barStyle = arrayBars[idx].style;
-    const colorClass = isMerge ? 'green' : 'red';
+    const colorClass = isMerge ? "green" : "red";
     barStyle.height = `${newHeight}px`;
     barStyle.backgroundColor = colorClass;
     setCurrentStep(currentStep + 1);
@@ -119,11 +119,11 @@ function MergeSort() {
   };
 
   return (
-    <div className='container'>
-      <div className='leftContainer'>
-        <h1 className='title'>About the Merge Sort</h1>
-        <div className='content'>
-          <div className='desc'>
+    <div className="container">
+      <div className="leftContainer">
+        <h1 className="title">About the Merge Sort</h1>
+        <div className="content">
+          <div className="desc">
             <p>
               Merge sort is a sorting algorithm that follows the
               divide-and-conquer approach. It divides the list into smaller
@@ -134,7 +134,7 @@ function MergeSort() {
               then merging the solutions back together.
             </p>
           </div>
-          <div className='performance'>
+          <div className="performance">
             <ul>
               <li>
                 <b>Worst complexity:</b> n*log(n)
@@ -158,21 +158,21 @@ function MergeSort() {
           </div>
         </div>
       </div>
-      <div className='rightContainer'>
-        <div className='array-container'>
+      <div className="rightContainer">
+        <div className="array-container">
           {array.map((value, idx) => (
             <div
-              className='array-bar'
+              className="array-bar"
               key={idx}
-              style={{ height: `${value}px`, backgroundColor: '#3498db' }}
+              style={{ height: `${value}px`, backgroundColor: "#3498db" }}
             ></div>
           ))}
         </div>
-        <div className='controls'>
+        <div className="controls">
           <button onClick={resetArray}>Generate New Elements</button>
           <button onClick={mergeSort}>Sort Elements</button>
           <button onClick={handleNextClick}>
-            {started ? 'Next' : 'Start step by step sorting'}
+            {started ? "Next" : "Start step by step sorting"}
           </button>
         </div>
       </div>

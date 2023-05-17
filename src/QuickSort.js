@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from "react";
 
 const QuickSort = () => {
   const [array, setArray] = useState([]);
   const [highlightedIndices, setHighlightedIndices] = useState([]);
   const [sortingIndex, setSortingIndex] = useState(-1);
 
-  useEffect(() => {
-    generateArray();
-  }, []);
-
-  const generateArray = () => {
+  const generateArray = useCallback(() => {
     const newArray = [];
     for (let i = 0; i < 20; i++) {
       newArray.push(randomIntFromInterval(5, 400));
@@ -17,7 +13,11 @@ const QuickSort = () => {
     setArray(newArray);
     setHighlightedIndices([]);
     setSortingIndex(-1);
-  };
+  }, []);
+
+  useEffect(() => {
+    generateArray();
+  }, [generateArray]);
 
   const quickSort = async (arr, start, end) => {
     if (start >= end) return;
@@ -62,7 +62,7 @@ const QuickSort = () => {
   };
 
   const handleNextStep = () => {
-    if (sortingIndex == -1) {
+    if (sortingIndex === -1) {
       setSortingIndex(0);
     } else {
       if (sortingIndex < array.length) {
@@ -85,11 +85,11 @@ const QuickSort = () => {
   };
 
   return (
-    <div className='container'>
-      <div className='leftContainer'>
-        <h1 className='title'>About the Quick Sort</h1>
-        <div className='content'>
-          <div className='desc'>
+    <div className="container">
+      <div className="leftContainer">
+        <h1 className="title">About the Quick Sort</h1>
+        <div className="content">
+          <div className="desc">
             <p>
               Quick sort also uses a divide-and-conquer strategy. It selects a
               "pivot" element from the list and rearranges the other elements
@@ -100,7 +100,7 @@ const QuickSort = () => {
               until the entire list is sorted.
             </p>
           </div>
-          <div className='performance'>
+          <div className="performance">
             <ul>
               <li>
                 <b>Worst complexity:</b> n^2
@@ -124,25 +124,25 @@ const QuickSort = () => {
           </div>
         </div>
       </div>
-      <div className='rightContainer'>
-        <div className='array-container'>
+      <div className="rightContainer">
+        <div className="array-container">
           {array.map((value, idx) => (
             <div
               className={`array-bar ${
-                highlightedIndices.includes(idx) ? 'highlighted' : ''
-              } ${idx === sortingIndex ? 'sorting' : ''}`}
+                highlightedIndices.includes(idx) ? "highlighted" : ""
+              } ${idx === sortingIndex ? "sorting" : ""}`}
               key={idx}
               style={{ height: `${value}px` }}
             ></div>
           ))}
         </div>
-        <div className='controls'>
+        <div className="controls">
           <button onClick={generateArray}>Generate New Elements</button>
           <button onClick={() => quickSort(array, 0, array.length - 1)}>
             Sort Elements
           </button>
           <button onClick={handleNextStep}>
-            {sortingIndex < 0 ? 'Start step by step sorting' : 'Next'}
+            {sortingIndex < 0 ? "Start step by step sorting" : "Next"}
           </button>
         </div>
       </div>
